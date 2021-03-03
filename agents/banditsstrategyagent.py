@@ -149,6 +149,12 @@ class BanditsOfStrategies:
         self.predictions = [
             strategy(self.our_hist, self.their_hist) for strategy in self.strategies
         ]
-        self.our_last_action = self.predictions[np.argmax(self.weights)]
+
+        # epsilon greedy
+        EPS = 0.0
+        if np.random.rand() < EPS:
+            self.our_last_action = choice(self.predictions)
+        else:
+            self.our_last_action = self.predictions[np.argmax(self.weights)]
 
         return self.our_last_action
